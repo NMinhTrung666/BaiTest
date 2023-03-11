@@ -33,7 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
   MatchEngine? _matchEngine;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   final List<String> _jokesContent = <String>[
-    'A child asked his father, "How were people born?" So his father said, "Adam and Eve made babies, then their babies became adults and made babies, and so on. /n "The child then went to his mother, asked her the same question and she told him, "We were monkeys then we evolved to become like we are now."The child ran back to his father and said, "You lied to me!" His father replied, "No, your mom was talking about her side of the family."',
+    'A child asked his father, "How were people born?" So his father said, "Adam and Eve made babies, then their babies became adults and made babies, and so on. "The child then went to his mother, asked her the same question and she told him, "We were monkeys then we evolved to become like we are now."The child ran back to his father and said, "You lied to me!" His father replied, "No, your mom was talking about her side of the family."',
     'Teacher: "Kids,what does the chicken give you?" Student: "Meat!" Teacher: "Very good! Now what does the pig give you?" Student: "Bacon!" Teacher: "Great! And what does the fat cow give you?" Student: "Homework!"',
     'The teacher asked Jimmy, "Why is your cat at school today Jimmy?" Jimmy replied crying, "Because I heard my daddy tell my mommy, "I am going to eat that pussy once Jimmy leaves for school today!"',
     'A housewife, an accountant and a lawyer were asked "How much is 2+2?" The housewife replies: "Four!". The accountant says: "I think its either 3 or 4. Let me run those figures through my spreadsheet one more time." The lawyer pulls the drapes, dims the lights and asks in a hushed voice, "How much do you want it to be?"',
@@ -77,11 +77,12 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title:  Row(
             children: [
-              const FlutterLogo(size: 56.0),
+              const FlutterLogo(size: 50.0),
               const Spacer(),
               Padding(
                 padding: const EdgeInsets.only(right: 20, top: 10),
                 child: RichText(
+                  textAlign: TextAlign.right,
                   text: TextSpan(
                     children: <TextSpan>[
                       TextSpan(
@@ -102,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),backgroundColor: Colors.white,
       ),
       body:
-      Center(
+      SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -117,12 +118,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: <TextSpan>[
                         TextSpan(
                           text: "A joke a day keeps the doctor away\n",
-                          style: TextStyle(color: Colors.white, fontSize: 18),
+                          style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500,height: 3),
 
                         ),
                         TextSpan(
                           text: "If you joke wrong way, your teeth have to pay. (Serious) \n",
-                          style: TextStyle(color: Colors.white, fontSize: 15),
+                          style: TextStyle(color: Colors.white, fontSize: 15, height: 2),
                         ),
                       ],
                     ),
@@ -144,7 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           color: Colors.white,
                           child: Text(
                             _swipeItems[index].content.text,
-                            style: const TextStyle(fontSize: 18),
+                            style: const TextStyle(fontSize: 18, color: Colors.black54),
                           ),
                         );
                       },
@@ -186,17 +187,18 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: [
                         ElevatedButton(
                             onPressed: () {
+                              _matchEngine!.currentItem?.like();
+                            },
+                            child: const Text("This is Funny!")),
+
+                        ElevatedButton(
+                            onPressed: () {
                               _matchEngine!.currentItem?.nope();
                             },
                             style: ElevatedButton.styleFrom(
                               primary: Colors.green, // Background color
                             ),
                             child: const Text("This is not Funny!")),
-                        ElevatedButton(
-                            onPressed: () {
-                              _matchEngine!.currentItem?.like();
-                            },
-                            child: const Text("This is Funny!"))
                       ],
                     ),
                   )
@@ -208,13 +210,18 @@ class _MyHomePageState extends State<MyHomePage> {
                   margin: const EdgeInsets.all(10.0),
                   width: double.infinity,
                   height: 150,
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      top: BorderSide(color: Color(0xFFDFDFDF)),
+                    ),
+                  ),
                   child: Center(
                     child: RichText(
                       textAlign: TextAlign.center,
                       text: TextSpan(
                         children: <TextSpan>[
                           TextSpan(
-                            text: "There is no need to display the result of the votes. User should not see the same joke twice. User do not need to register or login to view the joke or vote for the joke. \n",
+                            text: "\n There is no need to display the result of the votes. User should not see the same joke twice. User do not need to register or login to view the joke or vote for the joke. \n",
                             style: TextStyle(color: Colors.black.withOpacity(0.5), fontSize: 18),
 
                           ),
