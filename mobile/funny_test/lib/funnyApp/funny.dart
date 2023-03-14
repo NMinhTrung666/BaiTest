@@ -73,14 +73,15 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       key: _scaffoldKey,
       appBar: AppBar(
-        title:  Row(
+        title: Row(
             children: [
-              const FlutterLogo(size: 50.0),
+              Image.asset('images/LOGO.png', width: 50,),
               const Spacer(),
               Padding(
-                padding: const EdgeInsets.only(right: 20, top: 10),
+                padding: const EdgeInsets.only(right: 10, top: 10),
                 child: RichText(
                   textAlign: TextAlign.right,
                   text: TextSpan(
@@ -97,20 +98,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),),
               const CircleAvatar(
-                backgroundImage: NetworkImage('https://lh3.googleusercontent.com/a/AGNmyxbJiIPYjS8TZPX8f4rxhJDUnaNYw0bf2juOhgw6nQ=s96-c-rg-br100'),
+                backgroundImage: AssetImage('images/avatar.png'),
               ),
             ]
         ),backgroundColor: Colors.white,
       ),
       body:
       SingleChildScrollView(
+
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-                color: Colors.green,
+                color: const Color(0xff29B363),
                 width: double.infinity,
-                height: 150,
+                height: 160,
                 child: Center(
                   child: RichText(
                     textAlign: TextAlign.center,
@@ -118,12 +120,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: <TextSpan>[
                         TextSpan(
                           text: "A joke a day keeps the doctor away\n",
-                          style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500,height: 3),
+                          style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w500,height: 3),
 
                         ),
                         TextSpan(
                           text: "If you joke wrong way, your teeth have to pay. (Serious) \n",
-                          style: TextStyle(color: Colors.white, fontSize: 15, height: 2),
+                          style: TextStyle(color: Colors.white, fontSize: 15, height: 3),
                         ),
                       ],
                     ),
@@ -131,84 +133,109 @@ class _MyHomePageState extends State<MyHomePage> {
                 )
             ),
 
-            SizedBox(
-                width: 340,
-                height: 400,
-                child: Stack(children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height - kToolbarHeight,
-                    child: SwipeCards(
-                      matchEngine: _matchEngine!,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          alignment: Alignment.center,
-                          color: Colors.white,
-                          child: Text(
-                            _swipeItems[index].content.text,
-                            style: const TextStyle(fontSize: 18, color: Colors.black54),
-                          ),
-                        );
-                      },
-                      onStackFinished: () {
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text("Stack Finished"),
-                          duration: Duration(milliseconds: 500),
-                        ));
-                      },
-                      itemChanged: (SwipeItem item, int index) {
-                        print("item: ${item.content.text}, index: $index");
-                      },
-                      leftSwipeAllowed: true,
-                      rightSwipeAllowed: true,
-                      upSwipeAllowed: true,
-                      fillSpace: true,
-                      likeTag: Container(
-                        margin: const EdgeInsets.all(15.0),
-                        padding: const EdgeInsets.all(3.0),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.green)
-                        ),
-                        child: const Text('This is Funny!'),
-                      ),
-                      nopeTag: Container(
-                        margin: const EdgeInsets.all(15.0),
-                        padding: const EdgeInsets.all(3.0),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.red)
-                        ),
-                        child: const Text('This is not Funny!'),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ElevatedButton(
-                            onPressed: () {
-                              _matchEngine!.currentItem?.like();
-                            },
-                            child: const Text("This is Funny!")),
-
-                        ElevatedButton(
-                            onPressed: () {
-                              _matchEngine!.currentItem?.nope();
-                            },
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.green, // Background color
+            Padding(padding: const EdgeInsets.only(top: 50),
+                child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    height: 450,
+                    child: Stack(children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height - kToolbarHeight,
+                        child: SwipeCards(
+                          matchEngine: _matchEngine!,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                              alignment: Alignment.topCenter,
+                              color: Colors.white,
+                              child: Text(
+                                _swipeItems[index].content.text,
+                                style: const TextStyle(fontSize: 18, color: Colors.black54),
+                              ),
+                            );
+                          },
+                          onStackFinished: () {
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                              content: Text("Stack Finished"),
+                              duration: Duration(milliseconds: 500),
+                            ));
+                          },
+                          itemChanged: (SwipeItem item, int index) {
+                            print("item: ${item.content.text}, index: $index");
+                          },
+                          leftSwipeAllowed: true,
+                          rightSwipeAllowed: true,
+                          upSwipeAllowed: true,
+                          fillSpace: true,
+                          likeTag: Container(
+                            margin: const EdgeInsets.all(15.0),
+                            padding: const EdgeInsets.all(3.0),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.green)
                             ),
-                            child: const Text("This is not Funny!")),
-                      ],
-                    ),
-                  )
-                ])),
+                            child: const Text('This is Funny!'),
+                          ),
+                          nopeTag: Container(
+                            margin: const EdgeInsets.all(15.0),
+                            padding: const EdgeInsets.all(3.0),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.red)
+                            ),
+                            child: const Text('This is not Funny!'),
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.38,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  _matchEngine!.currentItem?.like();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  padding:
+                                  const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                                  textStyle:
+                                  const TextStyle(fontSize: 18),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(0)),
+                                ),
+                                child: const Text("This is Funny!"),
+                              ),
+                            ),
+
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.38,
+                              child: ElevatedButton(
+                                  onPressed: () {
+                                    _matchEngine!.currentItem?.nope();
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xff29B363),
+                                    padding:
+                                    const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                                    textStyle:
+                                    const TextStyle(fontSize: 18),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(0)),
+
+                                  ),
+                                  child: const Text("This is not Funny!")),
+                            ),
+                          ],
+                        ),
+                      )
+                    ])),
+            ),
+
 
             Padding(
               padding: const EdgeInsets.only(top: 50),
               child:  Container(
                   margin: const EdgeInsets.all(10.0),
-                  width: double.infinity,
+                  width: MediaQuery.of(context).size.width,
                   height: 150,
                   decoration: const BoxDecoration(
                     border: Border(
@@ -223,7 +250,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           TextSpan(
                             text: "\n There is no need to display the result of the votes. User should not see the same joke twice. User do not need to register or login to view the joke or vote for the joke. \n",
                             style: TextStyle(color: Colors.black.withOpacity(0.5), fontSize: 18),
-
                           ),
                           TextSpan(
                             text: "Copyright 2021 HLS \n",
